@@ -1,15 +1,22 @@
 import in_place
+import sys
+import os
 
 n0=n1=n2=n3=n4=n5=n6=n7=n8=0
-d0=c0=l0=0
-dgain=85
+d0=c0=l0=r0=a0=0
+dgain=84
 igain=88
+mixer = sys.argv[1]
+print("Project Duality")
+print("\n \n")
 boost=(input("Would you like to increase the speaker gain? Y or N"))
 boost=boost.lower()
+duals=(input("Would you like to enable dual speaker? Y or N"))
+duals=duals.lower()
 if boost=="y":
     dgain=int(input("Enter the default gain (84 in most cases) :"))
-    igain=int(input("How much would you like to increase the gain : (0-10)"))+dgain
-with in_place.InPlace('data.xml') as file:
+    igain=int(input("How much would you like to increase the gain (0-10) :"))+dgain
+with in_place.InPlace(mixer) as file:
     for line in file:
         if boost=="y":
             if (n0<1) and ('<ctl name="RX0 Digital Volume" value="'+str(dgain)+'" />' in line):
@@ -39,13 +46,43 @@ with in_place.InPlace('data.xml') as file:
             elif n8<1 and ('<ctl name="RX8 Digital Volume" value="'+str(dgain)+'" />' in line):
                 line = line.replace('<ctl name="RX8 Digital Volume" value="'+str(dgain)+'" />', '<ctl name="RX8 Digital Volume" value="'+str(igain)+'" />')
                 n8=n8+1
-        if (d0<1) and ('<path name="deep-buffer-playback speaker">' in line):
-            line = line.replace('<path name="deep-buffer-playback speaker">','<path name="deep-buffer-playback speaker"> \n \t    <ctl name="SLIMBUS_0_RX Audio Mixer MultiMedia1" value="1" />')
-            d0=d0+1
-        if (c0<1) and ('<path name="compress-offload-playback speaker">' in line):
-            line = line.replace('<path name="compress-offload-playback speaker">','<path name="compress-offload-playback speaker"> \n \t    <ctl name="SLIMBUS_0_RX Audio Mixer MultiMedia4" value="1" />')
-            c0=c0+1
-        if (l0<1) and ('<path name="low-latency-playback speaker">' in line):
-            line = line.replace('<path name="low-latency-playback speaker">','<path name="low-latency-playback speaker"> \n \t    <ctl name="SLIMBUS_0_RX Audio Mixer MultiMedia5" value="1" />')
-            l0=l0+1
+        if duals=="y":
+            if (d0<1) and ('<path name="deep-buffer-playback speaker">' in line):
+                line = line.replace('<path name="deep-buffer-playback speaker">','<path name="deep-buffer-playback speaker"> \n \t    <ctl name="SLIMBUS_0_RX Audio Mixer MultiMedia1" value="1" />')
+                d0=d0+1
+            if (c0<1) and ('<path name="compress-offload-playback speaker">' in line):
+                line = line.replace('<path name="compress-offload-playback speaker">','<path name="compress-offload-playback speaker"> \n \t    <ctl name="SLIMBUS_0_RX Audio Mixer MultiMedia4" value="1" />')
+                c0=c0+1
+            if (l0<1) and ('<path name="low-latency-playback speaker">' in line):
+                line = line.replace('<path name="low-latency-playback speaker">','<path name="low-latency-playback speaker"> \n \t    <ctl name="SLIMBUS_0_RX Audio Mixer MultiMedia5" value="1" />')
+                l0=l0+1
+            if (r0<1) and ('<ctl name="RX INT0_1 MIX1 INP0" value="ZERO" />' in line):
+                line = line.replace('<ctl name="RX INT0_1 MIX1 INP0" value="ZERO" />','<ctl name="RX INT0_1 MIX1 INP0" value="RX0" />')
+                r0=r0+1
+            if (a0<1) and ('<ctl name="SLIM RX0 MUX" value="ZERO" />' in line):
+                line = line.replace('<ctl name="SLIM RX0 MUX" value="ZERO" />','<ctl name="SLIM RX0 MUX" value="AIF1_PB" />')
+                a0=a0+1
         file.write(line)
+print(" \n \n")
+if boost=="y":
+    if n0==1:
+        print("Speaker Gain Patched!")
+    else:
+        print("Speaker Gain Patch Failed!")
+
+if duals=="y":
+    if d0==1:
+        print("Dual Speaker Patched!")
+    else:
+        print("Dual Speaker Patch Failed!")
+
+print("")
+print("Don't forget to visit the thread on XDA and drop your feedback")
+print("")
+print("By acervenky@XDA")
+print("")
+print("")
+
+os.system('pause')
+
+
