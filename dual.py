@@ -7,15 +7,20 @@ d0=c0=l0=r0=a0=0
 dgain=84
 igain=88
 mixer = sys.argv[1]
-print("Project Duality")
+print("Project Duality - v1")
 print("\n \n")
-boost=(input("Would you like to increase the speaker gain? Y or N"))
+print("Selected File : "+mixer)
+print("\n")
+boost=(input("Would you like to increase the speaker gain? Y or N \n"))
 boost=boost.lower()
-duals=(input("Would you like to enable dual speaker? Y or N"))
+duals=(input("Would you like to enable dual speaker? Y or N \n"))
 duals=duals.lower()
 if boost=="y":
-    dgain=int(input("Enter the default gain (84 in most cases) :"))
-    igain=int(input("How much would you like to increase the gain (0-10) :"))+dgain
+    dgain=int(input("Enter the default gain (84 in most cases) : \n"))
+    igain=int(input("How much would you like to increase the gain (0-10) : \n"))
+    if igain>6:
+        print("Warning : Reduce the gain if you hear distortions")
+    igain=igain+dgain
 with in_place.InPlace(mixer) as file:
     for line in file:
         if boost=="y":
@@ -69,12 +74,14 @@ if boost=="y":
         print("Speaker Gain Patched!")
     else:
         print("Speaker Gain Patch Failed!")
+        print("Visit the project wiki and follow the instructions on Troubleshoot page")
 
 if duals=="y":
     if d0==1:
         print("Dual Speaker Patched!")
     else:
         print("Dual Speaker Patch Failed!")
+        print("Visit the project wiki and follow the instructions on Troubleshoot page")
 
 print("")
 print("Don't forget to visit the thread on XDA and drop your feedback")
