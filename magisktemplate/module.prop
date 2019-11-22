@@ -1,0 +1,7 @@
+id=projduality
+name=Project Duality 
+version=v1
+versionCode=1
+author=acervenky
+description=Magisk template for project duality
+minMagisk=1500
