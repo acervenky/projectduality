@@ -4,8 +4,11 @@ import os
 
 n0=n1=n2=n3=n4=n5=n6=n7=n8=0
 d0=c0=l0=r0=a0=0
+dh0=ch0=0
 dgain=84
 igain=88
+dgainh=20
+igainh=24
 mixer = sys.argv[1]
 print("Project Duality - v1")
 print("\n \n")
@@ -67,6 +70,13 @@ with in_place.InPlace(mixer) as file:
             if (a0<1) and ('<ctl name="SLIM RX0 MUX" value="ZERO" />' in line):
                 line = line.replace('<ctl name="SLIM RX0 MUX" value="ZERO" />','<ctl name="SLIM RX0 MUX" value="AIF1_PB" />')
                 a0=a0+1
+        if hpb=="y":
+            if (dh0<1) and ('<ctl name="HPHL Volume" value="'+str(dgainh)+'" />' in line):
+                line = line.replace('<ctl name="HPHL Volume" value="'+str(dgainh)+'" />', '<ctl name="HPHL Volume" value="'+str(igainh)+'" />')
+                dh0=dh0+1
+            if (ch0<1) and ('<ctl name="HPHR Volume" value="'+str(dgainh)+'" />' in line):
+                line = line.replace('<ctl name="HPHR Volume" value="'+str(dgainh)+'" />', '<ctl name="HPHR Volume" value="'+str(igainh)+'" />')
+                ch0=ch0+1
         file.write(line)
 print(" \n \n")
 if boost=="y":
