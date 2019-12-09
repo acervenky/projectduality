@@ -16,6 +16,8 @@ print("Selected File : "+mixer)
 print("\n")
 boost=(input("Would you like to increase the speaker gain? Y or N \n"))
 boost=boost.lower()
+boosth=(input("Would you like to increase the headphone gain? Y or N \n"))
+boosth=boost.lower()
 duals=(input("Would you like to enable dual speaker? Y or N \n"))
 duals=duals.lower()
 if boost=="y":
@@ -24,6 +26,13 @@ if boost=="y":
     if igain>6:
         print("Warning : Reduce the gain if you hear distortions")
     igain=igain+dgain
+	
+if boosth=="y":
+    dgainh=int(input("Enter the default gain (20 in most cases) : \n"))
+    igainh=int(input("How much would you like to increase the gain (0-10) : \n"))
+    if igainh>6:
+        print("Warning : Reduce the gain if you hear distortions")
+    igainh=igainh+dgainh
 with in_place.InPlace(mixer) as file:
     for line in file:
         if boost=="y":
@@ -84,6 +93,13 @@ if boost=="y":
         print("Speaker Gain Patched!")
     else:
         print("Speaker Gain Patch Failed!")
+        print("Visit the project wiki and follow the instructions on Troubleshoot page")
+		
+if boosth=="y":
+    if dh0==1:
+        print("Headphone Gain Patched!")
+    else:
+        print("Headphone Gain Patch Failed!")
         print("Visit the project wiki and follow the instructions on Troubleshoot page")
 
 if duals=="y":
