@@ -9,6 +9,7 @@ dgain=84
 igain=88
 dgainh=20
 igainh=24
+istype=0
 mixer = sys.argv[1]
 print("Project Duality - v1")
 print("\n \n")
