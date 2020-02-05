@@ -80,7 +80,7 @@ with in_place.InPlace(mixer) as file:
             if (a0<1) and ('<ctl name="SLIM RX0 MUX" value="ZERO" />' in line):
                 line = line.replace('<ctl name="SLIM RX0 MUX" value="ZERO" />','<ctl name="SLIM RX0 MUX" value="AIF1_PB" />')
                 a0=a0+1
-        if hpb=="y":
+        if boosth=="y":
             if (dh0<1) and ('<ctl name="HPHL Volume" value="'+str(dgainh)+'" />' in line):
                 line = line.replace('<ctl name="HPHL Volume" value="'+str(dgainh)+'" />', '<ctl name="HPHL Volume" value="'+str(igainh)+'" />')
                 dh0=dh0+1
