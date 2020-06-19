@@ -66,19 +66,19 @@ with in_place.InPlace(mixer) as file:
                 n8=n8+1
         if duals=="y":
             if (d0<1) and ('<path name="deep-buffer-playback speaker">' in line):
-                line = line.replace('<path name="deep-buffer-playback speaker">','<path name="deep-buffer-playback speaker"> \n \t    <ctl name="SLIMBUS_0_RX Audio Mixer MultiMedia1" value="1" />')
+                line = line.replace('<path name="deep-buffer-playback speaker">','<path name="deep-buffer-playback speaker"> \n \t    <ctl name="SLIMBUS_0_RX Audio Mixer MultiMedia1" value="1" /> <!--Dual Speaker-->')
                 d0=d0+1
             if (c0<1) and ('<path name="compress-offload-playback speaker">' in line):
-                line = line.replace('<path name="compress-offload-playback speaker">','<path name="compress-offload-playback speaker"> \n \t    <ctl name="SLIMBUS_0_RX Audio Mixer MultiMedia4" value="1" />')
+                line = line.replace('<path name="compress-offload-playback speaker">','<path name="compress-offload-playback speaker"> \n \t    <ctl name="SLIMBUS_0_RX Audio Mixer MultiMedia4" value="1" /> <!--Dual Speaker-->')
                 c0=c0+1
             if (l0<1) and ('<path name="low-latency-playback speaker">' in line):
-                line = line.replace('<path name="low-latency-playback speaker">','<path name="low-latency-playback speaker"> \n \t    <ctl name="SLIMBUS_0_RX Audio Mixer MultiMedia5" value="1" />')
+                line = line.replace('<path name="low-latency-playback speaker">','<path name="low-latency-playback speaker"> \n \t    <ctl name="SLIMBUS_0_RX Audio Mixer MultiMedia5" value="1" /><!--Dual Speaker-->')
                 l0=l0+1
             if (r0<1) and ('<ctl name="RX INT0_1 MIX1 INP0" value="ZERO" />' in line):
-                line = line.replace('<ctl name="RX INT0_1 MIX1 INP0" value="ZERO" />','<ctl name="RX INT0_1 MIX1 INP0" value="RX0" />')
+                line = line.replace('<ctl name="RX INT0_1 MIX1 INP0" value="ZERO" />','<ctl name="RX INT0_1 MIX1 INP0" value="RX0" /> <!--Dual Speaker-->')
                 r0=r0+1
             if (a0<1) and ('<ctl name="SLIM RX0 MUX" value="ZERO" />' in line):
-                line = line.replace('<ctl name="SLIM RX0 MUX" value="ZERO" />','<ctl name="SLIM RX0 MUX" value="AIF1_PB" />')
+                line = line.replace('<ctl name="SLIM RX0 MUX" value="ZERO" />','<ctl name="SLIM RX0 MUX" value="AIF1_PB" /> <!--Dual Speaker-->')
                 a0=a0+1
         if boosth=="y":
             if (dh0<1) and ('<ctl name="HPHL Volume" value="'+str(dgainh)+'" />' in line):
