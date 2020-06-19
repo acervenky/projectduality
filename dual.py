@@ -23,14 +23,14 @@ duals=(input("Would you like to enable dual speaker? Y or N \n"))
 duals=duals.lower()
 if boost=="y":
     dgain=int(input("Enter the default gain (84 in most cases) : \n"))
-    igain=int(input("How much would you like to increase the gain (0-10) : \n"))
+    igain=int(input("How much would you like to increase the speaker gain (0-10) : \n"))
     if igain>6:
         print("Warning : Reduce the gain if you hear distortions")
     igain=igain+dgain
 	
 if boosth=="y":
     dgainh=int(input("Enter the default gain (20 in most cases) : \n"))
-    igainh=int(input("How much would you like to increase the gain (0-10) : \n"))
+    igainh=int(input("How much would you like to increase the headphone gain (0-10) : \n"))
     if igainh>6:
         print("Warning : Reduce the gain if you hear distortions")
     igainh=igainh+dgainh
@@ -38,31 +38,31 @@ with in_place.InPlace(mixer) as file:
     for line in file:
         if boost=="y":
             if (n0<1) and ('<ctl name="RX0 Digital Volume" value="'+str(dgain)+'" />' in line):
-                line = line.replace('<ctl name="RX0 Digital Volume" value="'+str(dgain)+'" />', '<ctl name="RX0 Digital Volume" value="'+str(igain)+'" />')
+                line = line.replace('<ctl name="RX0 Digital Volume" value="'+str(dgain)+'" />', '<ctl name="RX0 Digital Volume" value="'+str(igain)+'" /> <!--Volume Boost-->')
                 n0=n0+1
             elif n1<1 and ('<ctl name="RX1 Digital Volume" value="'+str(dgain)+'" />' in line):
-                line = line.replace('<ctl name="RX1 Digital Volume" value="'+str(dgain)+'" />', '<ctl name="RX1 Digital Volume" value="'+str(igain)+'" />')
+                line = line.replace('<ctl name="RX1 Digital Volume" value="'+str(dgain)+'" />', '<ctl name="RX1 Digital Volume" value="'+str(igain)+'" /> <!--Volume Boost-->')
                 n1=n1+1
             elif n2<1 and ('<ctl name="RX2 Digital Volume" value="'+str(dgain)+'" />' in line):
-                line = line.replace('<ctl name="RX2 Digital Volume" value="'+str(dgain)+'" />', '<ctl name="RX2 Digital Volume" value="'+str(igain)+'" />')
+                line = line.replace('<ctl name="RX2 Digital Volume" value="'+str(dgain)+'" />', '<ctl name="RX2 Digital Volume" value="'+str(igain)+'" /> <!--Volume Boost-->')
                 n2=n2+1
             elif n3<1 and ('<ctl name="RX3 Digital Volume" value="'+str(dgain)+'" />' in line):
-                line = line.replace('<ctl name="RX3 Digital Volume" value="'+str(dgain)+'" />', '<ctl name="RX3 Digital Volume" value="'+str(igain)+'" />')
+                line = line.replace('<ctl name="RX3 Digital Volume" value="'+str(dgain)+'" />', '<ctl name="RX3 Digital Volume" value="'+str(igain)+'" /> <!--Volume Boost-->')
                 n3=n3+1
             elif n4<1 and ('<ctl name="RX4 Digital Volume" value="'+str(dgain)+'" />' in line):
-                line = line.replace('<ctl name="RX4 Digital Volume" value="'+str(dgain)+'" />', '<ctl name="RX4 Digital Volume" value="'+str(igain)+'" />')
+                line = line.replace('<ctl name="RX4 Digital Volume" value="'+str(dgain)+'" />', '<ctl name="RX4 Digital Volume" value="'+str(igain)+'" /> <!--Volume Boost-->')
                 n4=n4+1
             elif n5<1 and ('<ctl name="RX5 Digital Volume" value="'+str(dgain)+'" />' in line):
-                line = line.replace('<ctl name="RX5 Digital Volume" value="'+str(dgain)+'" />', '<ctl name="RX5 Digital Volume" value="'+str(igain)+'" />')
+                line = line.replace('<ctl name="RX5 Digital Volume" value="'+str(dgain)+'" />', '<ctl name="RX5 Digital Volume" value="'+str(igain)+'" /> <!--Volume Boost-->')
                 n5=n5+1
             elif n6<1 and ('<ctl name="RX6 Digital Volume" value="'+str(dgain)+'" />' in line):
-                line = line.replace('<ctl name="RX6 Digital Volume" value="'+str(dgain)+'" />', '<ctl name="RX6 Digital Volume" value="'+str(igain)+'" />')
+                line = line.replace('<ctl name="RX6 Digital Volume" value="'+str(dgain)+'" />', '<ctl name="RX6 Digital Volume" value="'+str(igain)+'" /> <!--Volume Boost-->')
                 n6=n6+1
             elif n7<1 and ('<ctl name="RX7 Digital Volume" value="'+str(dgain)+'" />' in line):
-                line = line.replace('<ctl name="RX7 Digital Volume" value="'+str(dgain)+'" />', '<ctl name="RX7 Digital Volume" value="'+str(igain)+'" />')
+                line = line.replace('<ctl name="RX7 Digital Volume" value="'+str(dgain)+'" />', '<ctl name="RX7 Digital Volume" value="'+str(igain)+'" /> <!--Volume Boost-->')
                 n7=n7+1
             elif n8<1 and ('<ctl name="RX8 Digital Volume" value="'+str(dgain)+'" />' in line):
-                line = line.replace('<ctl name="RX8 Digital Volume" value="'+str(dgain)+'" />', '<ctl name="RX8 Digital Volume" value="'+str(igain)+'" />')
+                line = line.replace('<ctl name="RX8 Digital Volume" value="'+str(dgain)+'" />', '<ctl name="RX8 Digital Volume" value="'+str(igain)+'" /> <!--Volume Boost-->')
                 n8=n8+1
         if duals=="y":
             if (d0<1) and ('<path name="deep-buffer-playback speaker">' in line):
@@ -82,10 +82,10 @@ with in_place.InPlace(mixer) as file:
                 a0=a0+1
         if boosth=="y":
             if (dh0<1) and ('<ctl name="HPHL Volume" value="'+str(dgainh)+'" />' in line):
-                line = line.replace('<ctl name="HPHL Volume" value="'+str(dgainh)+'" />', '<ctl name="HPHL Volume" value="'+str(igainh)+'" />')
+                line = line.replace('<ctl name="HPHL Volume" value="'+str(dgainh)+'" />', '<ctl name="HPHL Volume" value="'+str(igainh)+'" /> <!--Headphone Boost(Left)-->')
                 dh0=dh0+1
             if (ch0<1) and ('<ctl name="HPHR Volume" value="'+str(dgainh)+'" />' in line):
-                line = line.replace('<ctl name="HPHR Volume" value="'+str(dgainh)+'" />', '<ctl name="HPHR Volume" value="'+str(igainh)+'" />')
+                line = line.replace('<ctl name="HPHR Volume" value="'+str(dgainh)+'" />', '<ctl name="HPHR Volume" value="'+str(igainh)+'" /> <!--Headphone Boost(Right)-->'')
                 ch0=ch0+1
         file.write(line)
 print(" \n \n")
