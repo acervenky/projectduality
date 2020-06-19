@@ -85,8 +85,11 @@ with in_place.InPlace(mixer) as file:
                 line = line.replace('<ctl name="HPHL Volume" value="'+str(dgainh)+'" />', '<ctl name="HPHL Volume" value="'+str(igainh)+'" /> <!--Headphone Boost(Left)-->')
                 dh0=dh0+1
             if (ch0<1) and ('<ctl name="HPHR Volume" value="'+str(dgainh)+'" />' in line):
-                line = line.replace('<ctl name="HPHR Volume" value="'+str(dgainh)+'" />', '<ctl name="HPHR Volume" value="'+str(igainh)+'" /> <!--Headphone Boost(Right)-->'')
+                line = line.replace('<ctl name="HPHR Volume" value="'+str(dgainh)+'" />', '<ctl name="HPHR Volume" value="'+str(igainh)+'" /> <!--Headphone Boost(Right)-->')
                 ch0=ch0+1
+        if ('<mixer>' in line):
+                                    line=line.replace('<mixer>','<mixer> <!--Patched with Project Duality-->')
+                                    
         file.write(line)
 print(" \n \n")
 if boost=="y":
