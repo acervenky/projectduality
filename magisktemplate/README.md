@@ -1,2 +1,4 @@
-Place the patched mixer in /system/vendor/etc
-Project Duality Wiki : https://github.com/acervenky/projectduality/wiki
+Changelog:
+
+v1 - Initial Release
+v2 - New Magisk Template
