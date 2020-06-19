@@ -11,7 +11,7 @@ dgainh=20
 igainh=24
 istype=0
 mixer = sys.argv[1]
-print("Project Duality - v1")
+print("Project Duality - v2")
 print("\n \n")
 print("Selected File : "+mixer)
 print("\n")
@@ -22,7 +22,7 @@ boosth=boost.lower()
 duals=(input("Would you like to enable dual speaker? Y or N \n"))
 duals=duals.lower()
 if boost=="y":
-    dgain=int(input("Enter the default gain (84 in most cases) : \n"))
+    dgain=int(input("Enter the default headphone gain (84 in most cases) : \n"))
     igain=int(input("How much would you like to increase the speaker gain (0-10) : \n"))
     if igain>6:
         print("Warning : Reduce the gain if you hear distortions")
