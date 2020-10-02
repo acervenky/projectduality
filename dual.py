@@ -10,6 +10,7 @@ igain=88
 dgainh=20
 igainh=24
 istype=0
+type1=type2=""
 mixer = sys.argv[1]
 print("Project Duality - v2")
 print("\n \n")
@@ -21,6 +22,9 @@ boosth=(input("Would you like to increase the headphone gain? Y or N \n"))
 boosth=boost.lower()
 duals=(input("Would you like to enable dual speaker? Y or N \n"))
 duals=duals.lower()
+type=(input("What is your deep-buffer-playback type? 1 or 2 \n"))
+type == 1 ? type1 = "y" : type2 = "y" 
+
 if boost=="y":
     dgain=int(input("Enter the default headphone gain (84 in most cases) : \n"))
     igain=int(input("How much would you like to increase the speaker gain (0-10) : \n"))
@@ -64,7 +68,7 @@ with in_place.InPlace(mixer) as file:
             elif n8<1 and ('<ctl name="RX8 Digital Volume" value="'+str(dgain)+'" />' in line):
                 line = line.replace('<ctl name="RX8 Digital Volume" value="'+str(dgain)+'" />', '<ctl name="RX8 Digital Volume" value="'+str(igain)+'" /> <!--Volume Boost-->')
                 n8=n8+1
-        if duals=="y":
+        if duals=="y" and type1=="y":
             if (d0<1) and ('<path name="deep-buffer-playback speaker">' in line):
                 line = line.replace('<path name="deep-buffer-playback speaker">','<path name="deep-buffer-playback speaker"> \n \t    <ctl name="SLIMBUS_0_RX Audio Mixer MultiMedia1" value="1" /> <!--Dual Speaker-->')
                 d0=d0+1
@@ -73,6 +77,22 @@ with in_place.InPlace(mixer) as file:
                 c0=c0+1
             if (l0<1) and ('<path name="low-latency-playback speaker">' in line):
                 line = line.replace('<path name="low-latency-playback speaker">','<path name="low-latency-playback speaker"> \n \t    <ctl name="SLIMBUS_0_RX Audio Mixer MultiMedia5" value="1" /><!--Dual Speaker-->')
+                l0=l0+1
+            if (r0<1) and ('<ctl name="RX INT0_1 MIX1 INP0" value="ZERO" />' in line):
+                line = line.replace('<ctl name="RX INT0_1 MIX1 INP0" value="ZERO" />','<ctl name="RX INT0_1 MIX1 INP0" value="RX0" /> <!--Dual Speaker-->')
+                r0=r0+1
+            if (a0<1) and ('<ctl name="SLIM RX0 MUX" value="ZERO" />' in line):
+                line = line.replace('<ctl name="SLIM RX0 MUX" value="ZERO" />','<ctl name="SLIM RX0 MUX" value="AIF1_PB" /> <!--Dual Speaker-->')
+                a0=a0+1
+	if duals=="y" and type2=="y":
+            if (d0<1) and ('<path name="deep-buffer-playback quat_i2s">' in line):
+                line = line.replace('<path name="deep-buffer-playback quat_i2s">','<path name="deep-buffer-playback quat_i2s"> \n \t    <ctl name="SLIMBUS_0_RX Audio Mixer MultiMedia1" value="1" /> <!--Dual Speaker-->')
+                d0=d0+1
+            if (c0<1) and ('<path name="compress-offload-playback quat_i2s">' in line):
+                line = line.replace('<path name="compress-offload-playback quat_i2s">','<path name="compress-offload-playback quat_i2s"> \n \t    <ctl name="SLIMBUS_0_RX Audio Mixer MultiMedia4" value="1" /> <!--Dual Speaker-->')
+                c0=c0+1
+            if (l0<1) and ('<path name="low-latency-playback quat_i2s">' in line):
+                line = line.replace('<path name="low-latency-playback quat_i2s">','<path name="low-latency-playback quat_i2s"> \n \t    <ctl name="SLIMBUS_0_RX Audio Mixer MultiMedia5" value="1" /><!--Dual Speaker-->')
                 l0=l0+1
             if (r0<1) and ('<ctl name="RX INT0_1 MIX1 INP0" value="ZERO" />' in line):
                 line = line.replace('<ctl name="RX INT0_1 MIX1 INP0" value="ZERO" />','<ctl name="RX INT0_1 MIX1 INP0" value="RX0" /> <!--Dual Speaker-->')
